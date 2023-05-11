@@ -58,30 +58,19 @@ public class BookService {
     }
 
 
-    public Book deleteBook(Long id){
-        Optional<Book> optionalBook = bookRepository.findById(id);
-        if (optionalBook.isPresent()){
-            bookRepository.deleteById(id);
-            return optionalBook.get();
-        }else{
-            return null;
-        }
+    public void deleteBook(Long id){
+        Book book = findBook(id);
+        bookRepository.deleteById(book.getId());
     }
 
     public Book updateBook(Book book) {
-        Optional<Book> optionalBook = bookRepository.findById(book.getId());
-        if (optionalBook.isPresent()){
-            Book book1 = optionalBook.get();
-            book1.setTitle(book.getTitle());
-            book1.setDescription(book.getDescription());
-            book1.setLanguage(book.getLanguage());
-            book1.setNumberOfPages(book.getNumberOfPages());
-            bookRepository.save(book1);
-            return book1;
-        }else{
-            return null;
-        }
-
+        Book book1 = findBook(book.getId());
+        book1.setTitle(book.getTitle());
+        book1.setDescription(book.getDescription());
+        book1.setLanguage(book.getLanguage());
+        book1.setNumberOfPages(book.getNumberOfPages());
+        bookRepository.save(book1);
+        return book1;
     }
 }
 
