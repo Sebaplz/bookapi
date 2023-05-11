@@ -21,6 +21,11 @@ public class BooksController {
         this.bookService = bookService;
     }
 
+    @RequestMapping("/")
+    public String home(){
+        return "redirect:/books";
+    }
+
     @RequestMapping("/books")
     public String index(Model model) {
         List<Book> books = bookService.allBooks();
@@ -29,7 +34,7 @@ public class BooksController {
     }
 
     @RequestMapping("/books/{id}")
-    public String show(@PathVariable Long id, Model model){
+    public String show(@PathVariable Long id, Model model) {
         Book book = bookService.findBook(id);
         model.addAttribute("book", book);
         return "/books/show.jsp";
@@ -48,5 +53,28 @@ public class BooksController {
             bookService.createBook(book);
             return "redirect:/books";
         }
+    }
+
+    @RequestMapping("/books/{id}/edit")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Book book = bookService.findBook(id);
+        model.addAttribute("book", book);
+        return "/books/edit.jsp";
+    }
+
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.PUT)
+    public String update(@Valid @ModelAttribute("book") Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/books/edit.jsp";
+        } else {
+            bookService.updateBook(book);
+            return "redirect:/books";
+        }
+    }
+
+    @RequestMapping(value = "/books/{id}", method = RequestMethod.DELETE)
+    public String destroy(@PathVariable("id") Long id) {
+        bookService.deleteBook(id);
+        return "redirect:/books";
     }
 }

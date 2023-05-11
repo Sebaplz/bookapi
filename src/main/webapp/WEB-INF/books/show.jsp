@@ -14,5 +14,6 @@
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="Delete" class="mt-3">
     </form>
+    <a href="/books">Volver atras</a>
 </div>
 

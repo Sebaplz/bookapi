@@ -2,6 +2,7 @@ package com.seba.bookapi.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,6 +22,7 @@ public class Book {
     @Size(min = 3, max = 40)
     private String language;
     @Min(100)
+    @NotNull
     private Integer numberOfPages;
     // Esto no permitirá que el campo createdAt sea modificado después de su creación.
     @Column(updatable = false)

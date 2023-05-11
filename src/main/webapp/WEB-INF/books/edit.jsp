@@ -1,3 +1,4 @@
+<%@ page isErrorPage="true" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- for Bootstrap CSS -->
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
@@ -5,8 +6,9 @@
 <!-- For any Bootstrap that uses JS -->
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 <div class="container mt-5">
-    <h1>New Book</h1>
-    <form:form action="/books" method="post" modelAttribute="book">
+    <h1>Edit Book</h1>
+    <form:form action="/books/${book.id}" method="post" modelAttribute="book">
+        <input type="hidden" name="_method" value="put">
         <p>
             <form:label path="title">Title</form:label>
             <form:errors path="title" class="text-danger"/>
